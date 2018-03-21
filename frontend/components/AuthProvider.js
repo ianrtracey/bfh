@@ -6,7 +6,7 @@ export const authContextTypes = {
   getAuthToken: PropTypes.func
 };
 
-const ACCESS_TOKEN = "ACCESS_TOKEN";
+const ACCESS_TOKEN_KEY = "ACCESS_TOKEN";
 
 export class AuthProvider extends Component {
   state = {
@@ -17,15 +17,15 @@ export class AuthProvider extends Component {
 
   componentDidMount = () => {
     const parsedToken = queryString.parse(window.location.hash).access_token;
-    console.log("found: ", parsedToken);
     if (parsedToken) {
-      console.log("writing");
-      window.localStorage.setItem(ACCESS_TOKEN, parsedToken);
+      console.log('writing token')
+      window.localStorage.setItem(ACCESS_TOKEN_KEY, parsedToken);
     }
 
     this.setState({
-      token: window.localStorage.getItem(ACCESS_TOKEN) || null
+      token: window.localStorage.getItem(ACCESS_TOKEN_KEY)
     });
+    console.log(this.state)
   };
 
   getChildContext() {

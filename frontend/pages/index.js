@@ -1,47 +1,48 @@
 import Link from "next/link";
-import Head from "../components/head";
-import Nav from "../components/nav";
+import Page from '../layouts/main';
 import Login from "../components/Login";
+
 import { AuthProvider } from "../components/AuthProvider";
+import { SpotifySDKProvider } from "../components/SpotifySDKProvider";
+import withData from '../lib/withData'
 
-export default () => (
+export default withData(() => (
   <AuthProvider>
-    <div>
-      <Head title="Home" />
-      <Nav />
+    <SpotifySDKProvider>
+      <Page>
+        <script src="https://sdk.scdn.co/spotify-player.js"></script>
+        <div className="hero">
+          <h1 className="title">Login to Continue</h1>
+          <div className="description">
+            <Login />
+          </div>
 
-      <div className="hero">
-        <h1 className="title">Login to Continue</h1>
-        <div className="description">
-          <Login />
-        </div>
-
-        <div className="row">
-          <Link href="https://github.com/zeit/next.js#getting-started">
-            <a className="card">
-              <h3>Getting Started &rarr;</h3>
-              <p>Learn more about Next on Github and in their examples</p>
-            </a>
-          </Link>
-          <Link href="https://open.segment.com/create-next-app">
-            <a className="card">
-              <h3>Examples &rarr;</h3>
-              <p>
-                Find other example boilerplates on the{" "}
-                <code>create-next-app</code> site
+          <div className="row">
+            <Link href="https://github.com/zeit/next.js#getting-started">
+              <a className="card">
+                <h3>Getting Started &rarr;</h3>
+                <p>Learn more about Next on Github and in their examples</p>
+              </a>
+            </Link>
+            <Link href="https://open.segment.com/create-next-app">
+              <a className="card">
+                <h3>Examples &rarr;</h3>
+                <p>
+                  Find other example boilerplates on the{" "}
+                  <code>create-next-app</code> site
               </p>
-            </a>
-          </Link>
-          <Link href="https://github.com/segmentio/create-next-app">
-            <a className="card">
-              <h3>Create Next App &rarr;</h3>
-              <p>Was this tool helpful? Let us know how we can improve it</p>
-            </a>
-          </Link>
+              </a>
+            </Link>
+            <Link href="https://github.com/segmentio/create-next-app">
+              <a className="card">
+                <h3>Create Next App &rarr;</h3>
+                <p>Was this tool helpful? Let us know how we can improve it</p>
+              </a>
+            </Link>
+          </div>
         </div>
-      </div>
 
-      <style jsx>{`
+        <style jsx>{`
         .hero {
           width: 100%;
           color: #333;
@@ -87,6 +88,7 @@ export default () => (
           color: #333;
         }
       `}</style>
-    </div>
+      </Page>
+    </SpotifySDKProvider>
   </AuthProvider>
-);
+));

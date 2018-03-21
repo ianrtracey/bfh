@@ -1,5 +1,7 @@
 import Head from "./head";
 import Link from "next/link";
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { withAuth } from "./AuthProvider";
 
 const links = [
@@ -9,7 +11,7 @@ const links = [
   return link;
 });
 
-const Nav = props => (
+const Nav = ({ data: { loading, error, user } }) => (
   <nav>
     <ul>
       <li>
@@ -18,13 +20,11 @@ const Nav = props => (
         </Link>
       </li>
       <ul>
-        {links.map(({ key, href, label }) => (
-          <li key={key}>
-            <Link href={href}>
-              <a>{label}</a>
-            </Link>
-          </li>
-        ))}
+        <li>
+          <Link>
+            <a>{!loading && !error ? user.email : 'Login'}</a>
+          </Link>
+        </li>
       </ul>
     </ul>
 
@@ -57,4 +57,14 @@ const Nav = props => (
   </nav>
 );
 
-export default withAuth(Nav);
+export const getUser = gql`
+  query getUser {
+    user {
+      displayName
+      email
+      imageUrl
+    }
+  }
+`
+
+export default graphql(getUser)(Nav);
