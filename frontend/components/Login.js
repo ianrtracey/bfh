@@ -1,30 +1,40 @@
-import { Component } from "react";
-import queryString from "query-string";
+import { Component } from 'react';
+import queryString from 'query-string';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: null
+      token: null,
     };
   }
 
   login(callback) {
-    var CLIENT_ID = "93a1dd69716b4bb9ad6e149ced3e7cb2";
-    var REDIRECT_URI = "http://localhost:3000/";
+    var CLIENT_ID = '93a1dd69716b4bb9ad6e149ced3e7cb2';
+    var REDIRECT_URI = 'http://localhost:3000/';
     function getLoginURL(scopes) {
       return (
-        "https://accounts.spotify.com/authorize?client_id=" +
+        'https://accounts.spotify.com/authorize?client_id=' +
         CLIENT_ID +
-        "&redirect_uri=" +
+        '&redirect_uri=' +
         encodeURIComponent(REDIRECT_URI) +
-        "&scope=" +
-        encodeURIComponent(scopes.join(" ")) +
-        "&response_type=token"
+        '&scope=' +
+        encodeURIComponent(scopes.join(' ')) +
+        '&response_type=token'
       );
     }
 
-    var url = getLoginURL(["user-read-email"]);
+    var url = getLoginURL([
+      'user-read-email',
+      'user-top-read',
+      'user-read-currently-playing',
+      'user-modify-playback-state',
+      'user-read-playback-state',
+      'streaming',
+      'playlist-read-private',
+      'playlist-read-collaborative',
+      'user-library-read',
+    ]);
 
     var width = 450,
       height = 730,
@@ -32,10 +42,10 @@ export default class Login extends Component {
       top = screen.height / 2 - height / 2;
 
     window.addEventListener(
-      "message",
+      'message',
       function(event) {
         var hash = JSON.parse(event.data);
-        if (hash.type == "access_token") {
+        if (hash.type == 'access_token') {
           callback(hash.access_token);
         }
       },
@@ -47,10 +57,10 @@ export default class Login extends Component {
 
   getUserData(accessToken) {
     return $.ajax({
-      url: "https://api.spotify.com/v1/me",
+      url: 'https://api.spotify.com/v1/me',
       headers: {
-        Authorization: "Bearer " + accessToken
-      }
+        Authorization: 'Bearer ' + accessToken,
+      },
     });
   }
 
