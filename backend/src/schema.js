@@ -14,9 +14,17 @@ type Player {
   status: String!
 }
 
+type Playlist {
+  city: String!
+  state: String!
+  country: String!
+  playlistUri: String!
+}
+
 type Query {
   user: User
   playing: Track
+  playlists(query: String!): [Playlist]
 }
 
 type Artist {

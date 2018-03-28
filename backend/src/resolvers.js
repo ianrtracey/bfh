@@ -1,7 +1,5 @@
 import fetch from 'node-fetch';
-
-const authToken =
-  'BQBCwVj3lt5SbUGX6rbV2vvWl0S28yf_Zq4-GoHt-lL0cmpPJplTZmuMQ3-0BBr7U0nN17UlrSxjAtfMKI_eqQelrbOWdP04d5O0dsXrvm6amhePuEP_wTL4AnftRABGHea_B7lkrijrMs5bSM3ZEwG30iKOFMclXCOuZ4u-rjNfpqDcAtJL';
+import playlistData from '../playlists.json';
 export const resolvers = {
   Query: {
     user: async request => {
@@ -35,6 +33,13 @@ export const resolvers = {
           uri: artist.uri,
         })),
       };
+    },
+    playlists: async (root, { query }) => {
+      const playlists = playlistData.filter(d =>
+        `${d.city}${d.state}`.toLowerCase().includes(query.toLowerCase())
+      );
+
+      return playlists;
     },
   },
   Mutation: {

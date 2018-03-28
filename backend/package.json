@@ -24,6 +24,8 @@
     "graphql-tools": "^2.23.1",
     "isomorphic-unfetch": "^2.0.0",
     "react-apollo": "^2.0.4",
+    "sequelize": "^4.37.4",
+    "sqlite3": "^4.0.0",
     "subscriptions-transport-ws": "^0.9.7"
   },
   "devDependencies": {
