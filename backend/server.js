@@ -7,7 +7,7 @@ import { createServer } from 'http';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
 
-const PORT = 4001;
+const PORT = 4000;
 const server = express();
 
 server.use('*', cors({ origin: 'http://localhost:3000 ' }));
@@ -46,4 +46,3 @@ ws.listen(PORT, () => {
     }
   );
 });
-console.log('Express GraphQL Server Now Running On localhost:4000/graphql');

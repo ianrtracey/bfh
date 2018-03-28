@@ -1,5 +1,6 @@
 import Head from '../components/head';
-import Nav from '../components/nav';
+import Nav from '../components/Nav';
+import styled from 'styled-components';
 
 export default ({ children }) => (
   <div>
@@ -7,4 +8,4 @@ export default ({ children }) => (
     <Nav />
     {children}
   </div>
-)
+);

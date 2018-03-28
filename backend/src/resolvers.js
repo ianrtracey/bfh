@@ -1,5 +1,7 @@
 import fetch from 'node-fetch';
 import playlistData from '../playlists.json';
+const authToken =
+  'BQDS-4YvYaYxWoZLJLMbbCIA6odRqqZHyVLdwCaX7iPB-phuT530OdU3L8Bn6hT8c8zhnzPIj5N-7zUWjvHdiImlWVKaZNq2A6CJmwNBxiKECwb6n3uA3RvqZ5i0UfZh3pdDs7nk4O9jOeSTo66Igk51c3mJcHFbrgpdSLhfi0jCF9xV_Sa6';
 export const resolvers = {
   Query: {
     user: async request => {
