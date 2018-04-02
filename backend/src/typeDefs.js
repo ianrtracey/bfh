@@ -1,8 +1,20 @@
-import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+export const typeDefs = `
 
-import { resolvers } from './resolvers';
+type Query {
+  user: User
+  playlists(query: String!): [Playlist]
+  playing: Track
+}
 
-const typeDefs = `
+type Mutation {
+  play(spotifyUri: String!): Player
+}
+
+type Subscription {
+  playingTrackChanged: Track
+}
+
+
 type User {
   uri: String
   displayName: String
@@ -15,16 +27,11 @@ type Player {
 }
 
 type Playlist {
+  id: String!
   city: String!
   state: String!
   country: String!
   playlistUri: String!
-}
-
-type Query {
-  user: User
-  playing: Track
-  playlists(query: String!): [Playlist]
 }
 
 type Artist {
@@ -39,10 +46,4 @@ type Track {
   coverPhoto: String!
   artists: [Artist]
 }
-
-type Mutation {
-  play(spotifyUri: String!): Player
-}
 `;
-const schema = makeExecutableSchema({ typeDefs, resolvers });
-export { schema };

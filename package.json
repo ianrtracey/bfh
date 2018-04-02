@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "graphql-yoga": "^1.7.0",
     "node-fetch": "^2.1.1"
   }
 }

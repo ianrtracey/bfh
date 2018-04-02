@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Page from '../layouts/main';
 import Login from '../components/Login';
 import Search from '../components/Search';
+import Player from '../components/Player';
 
 import { AuthProvider } from '../components/AuthProvider';
 import { SpotifySDKProvider } from '../components/SpotifySDKProvider';
@@ -12,6 +13,7 @@ export default withData(() => (
   // <SpotifySDKProvider>
   <Page>
     <Search />
+    <Player />
   </Page>
   // </SpotifySDKProvider>
   // </AuthProvider>

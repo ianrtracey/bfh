@@ -1,7 +1,14 @@
 import fetch from 'node-fetch';
 import playlistData from '../playlists.json';
+import { withFilter } from 'graphql-yoga';
+import { PlaylistDb } from './playlistDb';
+
 const authToken =
-  'BQDS-4YvYaYxWoZLJLMbbCIA6odRqqZHyVLdwCaX7iPB-phuT530OdU3L8Bn6hT8c8zhnzPIj5N-7zUWjvHdiImlWVKaZNq2A6CJmwNBxiKECwb6n3uA3RvqZ5i0UfZh3pdDs7nk4O9jOeSTo66Igk51c3mJcHFbrgpdSLhfi0jCF9xV_Sa6';
+  'BQCzAQFNvpzEBIdWTrMyk3_7jDn3stLtQJyEPaMzets6I2UfrC_C3vDOCjmxpctavgk3856fT0Wx8qKOHDpndxipLqY5GPekQP2zglqQ6iA8OQCD6-Ez36uQDWLvPvDoyQp6CPNalMJEiUzeq79nJN7S5Zsfcfe7yyJ01pl_ZVYSAwyBm6Fg';
+
+const TRACK_CHANGED_CHANNEL = 'TRACK_CHANGED';
+const playlistDb = new PlaylistDb();
+
 export const resolvers = {
   Query: {
     user: async request => {
@@ -37,15 +44,13 @@ export const resolvers = {
       };
     },
     playlists: async (root, { query }) => {
-      const playlists = playlistData.filter(d =>
-        `${d.city}${d.state}`.toLowerCase().includes(query.toLowerCase())
-      );
-
-      return playlists;
+      const data = playlistDb.getPlaylists({ query })
+      console.log(data);
+      return data
     },
   },
   Mutation: {
-    play: async (root, { spotifyUri }) => {
+    play: async (root, { spotifyUri }, { pubsub }) => {
       console.log(spotifyUri);
       const res = await put('https://api.spotify.com/v1/me/player/play', {
         context_uri: spotifyUri,
@@ -61,6 +66,17 @@ export const resolvers = {
       };
     },
   },
+  Subscription: {
+    playingTrackChanged: {
+      subscribe: withFilter(
+        () => pubsub.asyncIterator(TRACK_CHANGED_CHANNEL),
+        (parent, args, { pubsub }) => {
+          const channel = getRandomChannelName();
+          setInterval(() => pubsub.publish(channel, { playing }), 2000)
+          return pubsub.asyncIterator(channel)
+        }),
+    }
+  }
 };
 
 const headers = {

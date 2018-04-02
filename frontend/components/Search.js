@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Link from 'next/link';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 
@@ -35,21 +35,29 @@ class Search extends React.Component {
     );
   }
 
+  playPlaylist(playlistUri) {
+    this.props.mutate({
+      variables: {
+        spotifyUri: playlistUri,
+      }
+    })
+  }
+
   renderResults() {
     const { loading, error, playlists } = this.props.data;
 
     if (loading) return null;
     if (error) return `Error: ${error}`;
 
+    console.log(this.props)
+
     return (
       <ul>
         {playlists.map(playlist => (
           <div>
-            <Link href={`/playlist?${playlist.playlistUri}`}>
-              <a>
-                {playlist.city} {playlist.state}
-              </a>
-            </Link>
+            <a onClick={() => this.playPlaylist(playlist.playlistUri)}>
+              {playlist.city} {playlist.state}
+            </a>
           </div>
         ))}
       </ul>
@@ -60,6 +68,7 @@ class Search extends React.Component {
 const getPlaylistsQuery = gql`
   query GetPlaylists($query: String!) {
     playlists(query: $query) {
+      id
       city
       state
       country
@@ -67,10 +76,21 @@ const getPlaylistsQuery = gql`
     }
   }
 `;
-export default graphql(getPlaylistsQuery, {
-  options: {
-    variables: {
-      query: 'arizona',
-    },
-  },
-})(Search);
+
+const playPlaylistMutation = gql`
+mutation PlayPlaylist($spotifyUri: String!) {
+  play(spotifyUri: $spotifyUri) {
+    status
+  }
+}
+`;
+export default compose(
+  graphql(playPlaylistMutation),
+  graphql(getPlaylistsQuery, {
+    options: {
+      variables: {
+        query: '',
+      },
+    }
+  }),
+)(Search);
