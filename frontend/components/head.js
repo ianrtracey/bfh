@@ -20,6 +20,11 @@ const Head = props => (
       <link rel="apple-touch-icon" href="/static/touch-icon.png" />
       <link rel="mask-icon" href="/static/favicon-mask.svg" color="#49B882" />
       <link rel="icon" href="/static/favicon.ico" />
+      <link
+        rel="stylesheet"
+        href="https://bootswatch.com/4/cyborg/bootstrap.min.css"
+      />
+
       <meta property="og:url" content={props.url || defaultOGURL} />
       <meta property="og:title" content={props.title || ''} />
       <meta
@@ -32,6 +37,12 @@ const Head = props => (
       <meta property="og:image" content={props.ogImage || defaultOGImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <script
+        defer
+        src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
+        integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+        crossorigin="anonymous"
+      />
     </NextHead>
   </div>
 );

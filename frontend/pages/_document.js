@@ -13,12 +13,13 @@ if (!process.browser) {
 
 injectGlobal`
   html {
-    font-size: 10px;
+    font-size: 16px;
   }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    background: #060606 !important
   }
 `;
 

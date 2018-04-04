@@ -13,7 +13,7 @@ export default withData(() => (
   // <SpotifySDKProvider>
   <Page>
     <Search />
-    <Player />
+    {/* <Player /> */}
   </Page>
   // </SpotifySDKProvider>
   // </AuthProvider>
