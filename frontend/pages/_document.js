@@ -14,8 +14,11 @@ if (!process.browser) {
 injectGlobal`
   html {
     font-size: 16px;
+    height: 100%;
+    background: #060606 !important 
   }
   body {
+    height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;

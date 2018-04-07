@@ -5,9 +5,9 @@ import styled from 'styled-components';
 const AppWrapper = styled.div``;
 
 export default ({ children }) => (
-  <AppWrapper>
+  <div className="w-100 bg-black-100">
     <Head title="Home" />
     <Nav />
     {children}
-  </AppWrapper>
+  </div>
 );

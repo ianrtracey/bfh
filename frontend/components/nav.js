@@ -5,47 +5,47 @@ import { withAuth } from './AuthProvider';
 import Login from './Login';
 import styled from 'styled-components';
 
-const Navigation = styled.div``;
 const Nav = ({ data: { loading, error, user } }) => (
-  <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a className="navbar-brand" href="#">
+  <nav className="db dt-l w-100 bg-black-90 border-box pa3 ph5-l">
+    <a
+      className="db dtc-l v-mid white-90 link dim w-100 w-25-l tc tl-l mb2 mb0-l"
+      href="#"
+      title="Home"
+    >
       Bands From Here
     </a>
-    <button
-      className="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarColor02"
-      aria-controls="navbarColor02"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span className="navbar-toggler-icon" />
-    </button>
-
-    <div className="collapse navbar-collapse" id="navbarColor02">
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item active">
-          <a className="nav-link" href="#">
-            Home <span className="sr-only">(current)</span>
-          </a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">
-            Features
-          </a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">
-            Pricing
-          </a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">
-            About
-          </a>
-        </li>
-      </ul>
+    <div className="db dtc-l v-mid w-100 w-75-l tc tr-l">
+      <a
+        className="link dim white-90 f6 f5-l dib mr3 mr4-l"
+        href="#"
+        title="Home"
+      >
+        Home
+      </a>
+      <a
+        className="link dim white-90 f6 f5-l dib mr3 mr4-l"
+        href="#"
+        title="How it Works"
+      >
+        How it Works
+      </a>
+      <a
+        className="link dim white-90 f6 f5-l dib mr3 mr4-l"
+        href="#"
+        title="Blog"
+      >
+        Blog
+      </a>
+      <a
+        className="link dim white-90 f6 f5-l dib mr3 mr4-l"
+        href="#"
+        title="Press"
+      >
+        Press
+      </a>
+      <a className="link dim white-90 f6 f5-l dib" href="#" title="Contact">
+        Contact
+      </a>
     </div>
   </nav>
 );

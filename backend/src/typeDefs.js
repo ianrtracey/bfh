@@ -3,6 +3,7 @@ export const typeDefs = `
 type Query {
   user: User
   playlists(query: String!): [Playlist]
+  playlist(id: String!): Playlist
   playing: Track
 }
 

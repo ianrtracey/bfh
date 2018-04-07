@@ -22,7 +22,7 @@ const Head = props => (
       <link rel="icon" href="/static/favicon.ico" />
       <link
         rel="stylesheet"
-        href="https://bootswatch.com/4/cyborg/bootstrap.min.css"
+        href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"
       />
 
       <meta property="og:url" content={props.url || defaultOGURL} />

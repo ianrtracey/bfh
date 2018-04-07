@@ -5,9 +5,14 @@ export class PlaylistDb {
   }
 
   getPlaylists({ query }) {
-    return this.playlistData
-      .filter(playlist => (
-        `${playlist.city} ${playlist.state} ${playlist.country}`.toLowerCase().includes(query.toLowerCase())
-      ))
+    return this.playlistData.filter(playlist =>
+      `${playlist.city} ${playlist.state} ${playlist.country}`
+        .toLowerCase()
+        .includes(query.toLowerCase())
+    );
+  }
+
+  getPlaylist({ id }) {
+    return this.playlistData.filter(playlist => playlist.id === id)[0];
   }
 }

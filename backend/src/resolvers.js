@@ -43,10 +43,14 @@ export const resolvers = {
         })),
       };
     },
+    playlist: async (root, { id }) => {
+      const data = playlistDb.getPlaylist({ id });
+      return data || null;
+    },
     playlists: async (root, { query }) => {
-      const data = playlistDb.getPlaylists({ query })
+      const data = playlistDb.getPlaylists({ query });
       console.log(data);
-      return data
+      return data;
     },
   },
   Mutation: {
@@ -72,11 +76,12 @@ export const resolvers = {
         () => pubsub.asyncIterator(TRACK_CHANGED_CHANNEL),
         (parent, args, { pubsub }) => {
           const channel = getRandomChannelName();
-          setInterval(() => pubsub.publish(channel, { playing }), 2000)
-          return pubsub.asyncIterator(channel)
-        }),
-    }
-  }
+          setInterval(() => pubsub.publish(channel, { playing }), 2000);
+          return pubsub.asyncIterator(channel);
+        }
+      ),
+    },
+  },
 };
 
 const headers = {
