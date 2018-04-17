@@ -6,13 +6,11 @@ import styled from 'styled-components';
 
 const Nav = ({ data: { loading, error, user } }) => (
   <nav className="db dt-l fw5 w-100 bg-black-90 border-box pa3 ph5-l">
-    <a
-      className="db dtc-l fw5 v-mid white-90 link dim w-100 w-25-l tc tl-l mb2 mb0-l"
-      href="/"
-      title="Home"
-    >
-      Bands From Here
-    </a>
+    <Link style={{ 'text-decoration': 'none' }} href="/" title="Home">
+      <a className="db dtc-l fw5 v-mid white-90 link dim w-100 w-25-l tc tl-l mb2 mb0-l">
+        Bands From Here
+      </a>
+    </Link>
     <div className="db dtc-l v-mid w-100 w-75-l tc tr-l">
       <a
         className="link dim white-90 f6 f5-l dib mr3 mr4-l"

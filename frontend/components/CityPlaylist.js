@@ -9,8 +9,9 @@ const Wrapper = styled.div`
   margin-top: 5%;
 `;
 
-const SpotifyButton = styled.div`
+const SpotifyButton = styled.a`
   color: #fff;
+  text-decoration: none;
   cursor: pointer;
   margin-bottom: 0 !important;
   margin-top: 1em;
@@ -50,33 +51,48 @@ const SpotifyButton = styled.div`
   }
 `;
 
-const CityPlaylistImpl = props => (
-  <Page>
-    <section class="mw-100 mw7-ns center tc pa3 ph5-ns">
-      <h2 className="f3 lh-copy center tracked-tight lh-solid white-80 mb0">
-        Bands from
-      </h2>
-      <h2 className="f2 lh-title center lh-solid white-90 mt0 mb0">
-        San Francisco, California USA
-      </h2>
-      <p className="f6 lh-copy white-70">37.7749° N, 122.4194° W</p>
-      <div className="db center mw12 black">
-        <img
-          className="br2 mw-100"
-          alt="Frank Ocean Blonde Album Cover"
-          src="https://farm5.staticflickr.com/4424/36354840063_18b0a4ca8f_b.jpg"
-        />
-        <dl className="mt2 f6 lh-copy">
-          <dt className="clip">Title</dt>
-          <dd className="ml0 fw9 white-90 tracked">74 Artists</dd>
-          <dt className="clip">Artist</dt>
-          <dd className="ml0 gray tracked-mega">1977-2018</dd>
-        </dl>
-      </div>
-      <SpotifyButton>Listen on Spotify</SpotifyButton>
-    </section>
-  </Page>
-);
+const getSpotifyLink = playlistUri =>
+  `https://open.spotify.com/user/bandsfromhere/playlist/${
+    playlistUri.split(':playlist:')[1]
+  }`;
+
+const CityPlaylistImpl = ({ data: { loading, error, playlist } }) => {
+  if (loading) {
+    return <Page>Loading...</Page>;
+  }
+  if (!!error) {
+    return <Page>Something went wrong :(</Page>;
+  }
+  return (
+    <Page>
+      <section class="mw-100 mw7-ns center tc pa3 ph5-ns">
+        <h2 className="f3 lh-copy center tracked-tight lh-solid white-80 mb0">
+          Bands from
+        </h2>
+        <h2 className="f2 lh-title center lh-solid white-90 mt0 mb0">
+          {`${playlist.city}, ${playlist.state} USA`}
+        </h2>
+        <p className="f6 lh-copy white-70">37.7749° N, 122.4194° W</p>
+        <div className="db center mw12 black">
+          <img
+            className="br2 mw-100"
+            alt="Frank Ocean Blonde Album Cover"
+            src="https://farm5.staticflickr.com/4424/36354840063_18b0a4ca8f_b.jpg"
+          />
+          <dl className="mt2 f6 lh-copy">
+            <dt className="clip">Title</dt>
+            <dd className="ml0 fw9 white-90 tracked">74 Artists</dd>
+            <dt className="clip">Artist</dt>
+            <dd className="ml0 gray tracked-mega">1977-2018</dd>
+          </dl>
+        </div>
+        <SpotifyButton href={getSpotifyLink(playlist.playlistUri)}>
+          Listen on Spotify
+        </SpotifyButton>
+      </section>
+    </Page>
+  );
+};
 CityPlaylistImpl.getInitialProps = async props => {
   console.log(props);
   return {};
@@ -95,11 +111,10 @@ const getPlaylistQuery = gql`
 
 const withData = graphql(getPlaylistQuery, {
   options: ownProps => ({
-    ...ownProps,
     variables: {
-      id: '',
+      id: ownProps.playlistId,
     },
   }),
 });
 
-export default CityPlaylistImpl;
+export default withData(CityPlaylistImpl);

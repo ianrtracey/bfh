@@ -21,7 +21,7 @@ const Input = styled.input`
   }
 `;
 
-const getPlaylistLink = playlistId => `/cities?${playlistId}`;
+const getPlaylistLink = playlistId => `/cities?playlistId=${playlistId}`;
 class SearchInput extends React.Component {
   constructor(props) {
     super(props);
@@ -72,15 +72,17 @@ class Result extends React.Component {
     const { link, coverImgUrl, city, country } = this.props;
     return (
       <div className="fl w-50 w-25-m w-20-l pa2">
-        <a href={link} className="db link dim tc">
-          <img src={coverImgUrl} />
-          <dl className="mt2 f6 lh-copy near-white">
-            <dt className="clip">City</dt>
-            <dd className="ml0 near-white truncate w-100">{city}</dd>
-            <dt className="clip">Country</dt>
-            <dd className="ml0 light-silver truncate w-100">{country}</dd>
-          </dl>
-        </a>
+        <Link href={link}>
+          <a className="db link dim tc">
+            <img src={coverImgUrl} />
+            <dl className="mt2 f6 lh-copy near-white">
+              <dt className="clip">City</dt>
+              <dd className="ml0 near-white truncate w-100">{city}</dd>
+              <dt className="clip">Country</dt>
+              <dd className="ml0 light-silver truncate w-100">{country}</dd>
+            </dl>
+          </a>
+        </Link>
       </div>
     );
   }
@@ -88,14 +90,14 @@ class Result extends React.Component {
 
 const trending = [
   {
-    link: '/?san-francisco-ca-usa',
+    link: '/cities?playlistId=san-francisco-ca-usa',
     coverimgurl:
       'http://farm3.staticflickr.com/2059/2484530708_d40219ff5b_z.jpg',
     city: 'San Francisco',
     country: 'California, USA',
   },
   {
-    link: '/?new-york-new-york-usa',
+    link: '/cities?playlistId=new-york-new-york-usa',
     coverimgurl:
       'https://farm5.staticflickr.com/4565/38937430371_f237316ee4_z.jpg',
     city: 'New York',
