@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import styled from 'styled-components';
 import debounce from 'lodash.debounce';
 import Router from 'next/router';
+import { Result } from './result';
 
 const SearchWrapper = styled.div``;
 const Input = styled.input`
@@ -67,27 +68,6 @@ const SuggestionItem = ({ getItemProps, item, isSelected, isHighlighted }) => (
   </div>
 );
 
-class Result extends React.Component {
-  render() {
-    const { link, coverImgUrl, city, country } = this.props;
-    return (
-      <div className="fl w-50 w-25-m w-20-l pa2">
-        <Link href={link}>
-          <a className="db link dim tc">
-            <img src={coverImgUrl} />
-            <dl className="mt2 f6 lh-copy near-white">
-              <dt className="clip">City</dt>
-              <dd className="ml0 near-white truncate w-100">{city}</dd>
-              <dt className="clip">Country</dt>
-              <dd className="ml0 light-silver truncate w-100">{country}</dd>
-            </dl>
-          </a>
-        </Link>
-      </div>
-    );
-  }
-}
-
 const trending = [
   {
     link: '/cities?playlistId=san-francisco-ca-usa',
@@ -105,7 +85,7 @@ const trending = [
   },
 ];
 
-class Search extends React.Component {
+class SearchImpl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -213,7 +193,7 @@ const playPlaylistMutation = gql`
     }
   }
 `;
-export default compose(
+export const Search = compose(
   graphql(playPlaylistMutation),
   graphql(getPlaylistsQuery, {
     options: {
@@ -222,4 +202,4 @@ export default compose(
       },
     },
   })
-)(Search);
+)(SearchImpl);

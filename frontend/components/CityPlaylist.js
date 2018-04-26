@@ -4,6 +4,7 @@ import * as React from 'react';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import Router from 'next/router';
+import { Image } from './common/image';
 
 const Wrapper = styled.div`
   margin-top: 5%;
@@ -74,10 +75,11 @@ const CityPlaylistImpl = ({ data: { loading, error, playlist } }) => {
         </h2>
         <p className="f6 lh-copy white-70">37.7749° N, 122.4194° W</p>
         <div className="db center mw12 black">
-          <img
-            className="br2 mw-100"
-            alt="Frank Ocean Blonde Album Cover"
-            src="https://farm5.staticflickr.com/4424/36354840063_18b0a4ca8f_b.jpg"
+          <Image
+            height={600}
+            imgUrl={
+              'https://farm5.staticflickr.com/4424/36354840063_18b0a4ca8f_b.jpg'
+            }
           />
           <dl className="mt2 f6 lh-copy">
             <dt className="clip">Title</dt>
